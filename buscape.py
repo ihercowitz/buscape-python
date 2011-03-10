@@ -7,9 +7,7 @@ class Buscape():
 
     url = "http://sandbox.buscape.com/service/"
     
-    def __init__(self,userID=None):
-
-        
+    def __init__(self,userID=None):       
         if not userID:
             raise ValueError("User ID must be specified") 
             
@@ -32,9 +30,7 @@ class Buscape():
                 print e
         
     
-    def search(self, method=None, parameter=None):
-
-        
+    def search(self, method=None, parameter=None):        
         if not method and not parameter:
             raise ValueError("Both method and search parameter must be specified")
         elif not method:
@@ -73,7 +69,6 @@ class Buscape():
             parameter = "?categoryId=%s" %categoryID    
 
         ret = self.search(method='findCategoryList', parameter=parameter)        
-
        
         return ret        
         
