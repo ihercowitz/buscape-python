@@ -123,10 +123,10 @@ def __buscape_doctest():
     Traceback (most recent call last):
     ValueError: URL must be specified
 
-    >>> b.fetch_url('http://sandbox.buscape.com/service/findProductList/%s/?categoryId=123&keyword=xpto')['code'] %userID #doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> b.fetch_url('http://sandbox.buscape.com/service/findProductList/2b613573535a6d324874493d/?categoryId=123&keyword=xpto')['code'] #doctest: +IGNORE_EXCEPTION_DETAIL
     200
  
-    >>> b.fetch_url('http://sandbox.buscape.org/service/findProductList/%s/?categoryId=123&keyword=xpto') %userID #doctest: +IGNORE_EXCEPTION_DETAIL
+    >>> b.fetch_url('http://sandbox.buscape.org/service/findProductList/2b613573535a6d324874493d/?categoryId=123&keyword=xpto') #doctest: +IGNORE_EXCEPTION_DETAIL
     HTTP Error 404: Not Found
 
     >>> b.fetch_url('http://sandbox.buscape.com/service/findProductList/abc/?categoryId=123&keyword=xpto') #doctest: +IGNORE_EXCEPTION_DETAIL
@@ -216,6 +216,9 @@ def __buscape_doctest():
     
     >>> b.find_category_list(keyword='LG')['code']
     200
+   
+    >>> b.find_category_list(keyword='LG')['data'] is not None
+    True
    
    
     ### Testing find_category_list ###
@@ -308,5 +311,7 @@ def __buscape_doctest():
     >>> b.find_product_list(keyword='celular',page=15)['code']
     200
         
+    >>> b.find_product_list(keyword='celular',page=15)['data'] is not None
+    True
     """   
  
