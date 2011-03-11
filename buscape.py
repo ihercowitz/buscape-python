@@ -1,4 +1,4 @@
-﻿#!/usr/bin/python
+#! /usr/bin/python
 # -*- coding: utf-8 -*-
 
 from urllib2 import urlopen, Request, URLError, HTTPError
@@ -7,11 +7,11 @@ class Buscape():
 
     url = "http://sandbox.buscape.com/service/"
     
-    def __init__(self,userID=None, country="BR"):       
-        if not userID:
+    def __init__(self,applicationID=None, country="BR"):
+        if not applicationID:
             raise ValueError("User ID must be specified") 
             
-        self.userID = userID
+        self.applicationID = applicationID
         
         if country is None:
             self.country = "BR"
@@ -48,7 +48,7 @@ class Buscape():
         if method not in ["findProductList","findCategoryList"]:
             raise ValueError("Invalid method")
         
-        req = self.url+'%s/%s/%s/%s' %(method, self.userID, self.country, parameter)      
+        req = self.url+'%s/%s/%s/%s' %(method, self.applicationID, self.country, parameter)
         
         try:
             ret = self.fetch_url(url=req)
