@@ -1,3 +1,6 @@
 #  Ignore python bytecode  #
 ############################
 *.pyc
+# Ignore NetBeans project folder #
+##################################
+nbproject/
