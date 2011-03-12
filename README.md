@@ -16,6 +16,7 @@ Existem dois modos:
 
 - Copiar o arquivo buscape.py para dentro do seu projeto
 - Executar o instalador da seguinte forma:
+--------------------------------------------
     
     #dentro da pasta buscape-python execute
     python setup.py build
