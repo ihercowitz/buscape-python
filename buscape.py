@@ -5,6 +5,7 @@ __author__="Igor Hercowitz"
 __author__="Alê Borba"
 __version__="v0.0.3"
 
+from VMBuilder.log import format
 from urllib2 import urlopen, Request, URLError, HTTPError
 
 class Buscape():
@@ -53,13 +54,10 @@ class Buscape():
         elif not parameter:
             raise ValueError("Parameter must be specified")
 
-        if method not in ["findProductList","findCategoryList"]:
-            raise ValueError("Invalid method")
-
         if self.environment != 'sandbox':
             self.environment = 'bws'
 
-        req = "http://%s.buscape.com/service/%s/%s/%s/%s" %(self.environment, method, self.applicationID, self.country, parameter)
+        req = "http://%s.buscape.com/service/%s/%s/%s/?%s" %(self.environment, method, self.applicationID, self.country, parameter)
         
         try:
             ret = self.__fetch_url(url=req)
@@ -93,9 +91,9 @@ class Buscape():
             raise ValueError("you must specify only keyword or categoryID. Both values aren't accepted")    
         
         if keyword:          
-            parameter = "?keyword=%s" %keyword          
+            parameter = "keyword=%s" %keyword          
         else:
-            parameter = "?categoryId=%s" %categoryID    
+            parameter = "categoryId=%s" %categoryID    
 
         ret = self.__search(method='findCategoryList', parameter=parameter)
        
@@ -136,12 +134,49 @@ class Buscape():
             
               
         if keyword and categoryID:
-            parameter = "?categoryId=%s&keyword=%s" %(categoryID, keyword)
+            parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
         elif not categoryID:          
-            parameter = "?keyword=%s" %keyword          
+            parameter = "keyword=%s" %keyword          
         elif not keyword:
-            parameter = "?categoryId=%s" %categoryID    
+            parameter = "categoryId=%s" %categoryID    
 
         ret = self.__search(method='findProductList', parameter=parameter)
        
+        return ret
+
+
+    def create_source_id(self,sourceName=None,publisherID=None,siteID=None, campaignList=None,token=None, format='XML'):
+        """
+        Serviço utilizado somente na integração do Aplicativo com o Lomadee.
+	Dentro do fluxo de integração, o aplicativo utiliza esse serviço para
+	criar sourceId (código) para o Publisher que deseja utiliza-lo.
+	Os parâmetros necessários neste serviço são informados pelo próprio
+	Lomadee ao aplicativo.
+	No ambiente de homologação sandbox, os valores dos parâmetros podem ser
+	fictícios pois neste ambiente este serviço retornará sempre o mesmo sourceId
+	para os testes do Developer.
+        """
+
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
+        if sourceName is None:
+            raise ValueError("sourceName option must be specified")
+
+#        if publisherID is None:
+#            raise ValueError("publisherID option must be specified")
+
+        if siteID is None:
+            raise ValueError("siteID option must be specified")
+
+        if token is None:
+            raise ValueError("token option must be specified")
+
+        if campaignList:
+            parameter = "sourceName=%s&publisherId=%s&siteId=%s&campaignList=%s&token=%s&format=%s" %(sourceName,publisherID,siteID,campaignList,token,format)
+        else:
+            parameter = "sourceName=%s&publisherId=%s&siteId=%s&token=%s&format=%s" %(sourceName,publisherID,siteID,token,format)
+
+        ret = self.__search(method='createSource/lomadee', parameter=parameter)
+
         return ret
