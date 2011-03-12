@@ -34,17 +34,18 @@ Método permite que você busque uma lista de produtos únicos utilizando o id d
 
 Exemplo de uso:
 -----------------
-#! /usr/bin/python
-# -*- coding: utf-8 -*-
 
-#importanto a lib
-from buscape import Buscape
+    #! /usr/bin/python
+    # -*- coding: utf-8 -*-
 
-#Instanciando o objeto
-buscape = Buscape(applicationID='your_applicationID')
+    #importanto a lib
+    from buscape import Buscape
 
-#Retornando a categoria 77
-exemplo = buscape.find_category_list(categoryID=77)
+    #Instanciando o objeto
+    buscape = Buscape(applicationID='your_applicationID')
 
-#Imprimindo
-print exemplo
+    #Retornando a categoria 77
+    exemplo = buscape.find_category_list(categoryID=77)
+
+    #Imprimindo
+    print exemplo
