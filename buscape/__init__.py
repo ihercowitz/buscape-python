@@ -1,0 +1,1 @@
+from buscape import Buscape
