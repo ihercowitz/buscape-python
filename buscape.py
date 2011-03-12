@@ -101,7 +101,7 @@ class Buscape():
         return ret        
         
     
-    def find_product_list(self, keyword=None, categoryID=None, format='XML', results=10,
+    def find_product_list(self, keyword=None, categoryID=None, format='XML', lomadee=False, results=10,
                             page=1, minPrice=0.0, maxPrice=0.0):
         """
         Método permite que você busque uma lista de produtos únicos
@@ -143,7 +143,12 @@ class Buscape():
 
         parameter = parameter + "&format=%s" %(format)
 
-        ret = self.__search(method='findProductList', parameter=parameter)
+        if lomadee:
+            method = "findProductList/lomadee"
+        else:
+            method = "findProductList"
+
+        ret = self.__search(method=method, parameter=parameter)
        
         return ret
 
