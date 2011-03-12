@@ -46,12 +46,12 @@ class Buscape():
                 raise URLError(e)
 
     
-    def __search(self, method=None, parameter=None, topProducts=False):
+    def __search(self, method=None, parameter=None):
         if not method and not parameter:
             raise ValueError("Both method and search parameter must be specified")
         elif not method:
             raise ValueError("Method must be specified")
-        elif not parameter and not topProducts:
+        elif not parameter:
             raise ValueError("Parameter must be specified")
 
         if self.environment != 'sandbox':
@@ -84,7 +84,6 @@ class Buscape():
         if format.upper() not in ["XML","JSON"]:
             raise ValueError("the return format must be XML or JSON")
         
-        
         if not keyword and (categoryID < 0 or categoryID is None or categoryID==''): 
             raise ValueError("keyword or categoryID option must be specified")
         elif keyword and categoryID:
@@ -94,6 +93,8 @@ class Buscape():
             parameter = "keyword=%s" %keyword          
         else:
             parameter = "categoryId=%s" %categoryID    
+
+        parameter = parameter + "&format=%s" %(format)
 
         ret = self.__search(method='findCategoryList', parameter=parameter)
        
@@ -139,6 +140,8 @@ class Buscape():
             parameter = "keyword=%s" %keyword          
         elif not keyword:
             parameter = "categoryId=%s" %categoryID    
+
+        parameter = parameter + "&format=%s" %(format)
 
         ret = self.__search(method='findProductList', parameter=parameter)
        
@@ -211,19 +214,46 @@ class Buscape():
         else:
             raise ValueError("One parameter must be especified")
 
+        parameter = parameter + "&format=%s" %(format)
+
         ret = self.__search(method=method, parameter=parameter)
 
         return ret
 
 
-    def top_products(self):
+    def top_products(self, format="XML"):
         """
-        Este serviço retorna os produtos mais populares do BuscaPé.
+        Método que retorna os produtos mais populares do BuscaPé.
         ToDo: Implementar filtros
         """
 
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
         method = "topProducts"
 
-        ret = self.__search(method=method,topProducts=True)
+        parameter = "&format=%s" %(format)
+
+        ret = self.__search(method=method,parameter=parameter)
+
+        return ret
+
+
+    def view_product_details(self, productID=None,format="XML"):
+        """
+        Método retorna os detalhes técnicos de um determinado produto.
+        """
+
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
+        if not productID:
+            raise ValueError('productID option must be especified')
+
+        method = "viewProductDetails"
+
+        parameter = "productId=%s&format=%s" %(productID,format)
+
+        ret = self.__search(method=method,parameter=parameter)
 
         return ret
