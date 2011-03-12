@@ -145,7 +145,7 @@ class Buscape():
         return ret
 
 
-    def create_source_id(self,sourceName=None,publisherID=None,siteID=None, campaignList=None,token=None, format='XML'):
+    def create_source_id(self, sourceName=None, publisherID=None, siteID=None, campaignList=None, token=None, format='XML'):
         """
         Serviço utilizado somente na integração do Aplicativo com o Lomadee.
 	Dentro do fluxo de integração, o aplicativo utiliza esse serviço para
@@ -163,8 +163,8 @@ class Buscape():
         if sourceName is None:
             raise ValueError("sourceName option must be specified")
 
-#        if publisherID is None:
-#            raise ValueError("publisherID option must be specified")
+        if publisherID is None:
+            raise ValueError("publisherID option must be specified")
 
         if siteID is None:
             raise ValueError("siteID option must be specified")
