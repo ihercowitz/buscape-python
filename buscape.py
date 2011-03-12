@@ -257,3 +257,23 @@ class Buscape():
         ret = self.__search(method=method,parameter=parameter)
 
         return ret
+
+
+    def view_seller_details(self,sellerID=None,format="XML"):
+        """
+        Método que retorna os detalhes de uma loja ou empresa como: endereços, telefones de contato e etc.
+        """
+
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
+        if not sellerID:
+            raise ValueError("sellerID option must be especified")
+
+        method = "viewSellerDetails"
+
+        parameter = "sellerId=%s&format=%s" %(sellerID,format)
+
+        ret = self.__search(method=method,parameter=parameter)
+
+        return ret

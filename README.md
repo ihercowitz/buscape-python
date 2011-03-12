@@ -52,6 +52,10 @@ view_product_details(productID, format)
 ---------------------------------------------------
 Método retorna os detalhes técnicos de um determinado produto.
 
+view_seller_details(sellerID, format)
+-------------------------------------------------
+Método que retorna os detalhes de uma loja ou empresa como: endereços, telefones de contato e etc.
+
 
 Exemplo de uso:
 -----------------
