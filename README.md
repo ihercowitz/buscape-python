@@ -27,7 +27,7 @@ find_category_list(keyword, categoryID, format)
 Método faz busca de categorias, permite que você exiba informações relativas às categorias. O formato padrão de retorno é XML e a outra opção disponível é JSON.
 Deve ser passado o parâmetro keyword ou categoryID, os dois juntos não é suportado pela API
 
-find_product_list(keyword, categoryID, format, results, page, minPrice, maxPrice)
+find_product_list(keyword, categoryID, format, lomadee, results, page, minPrice, maxPrice)
 -----------------------------------------------------------------------------------------
 Método permite que você busque uma lista de produtos únicos utilizando o id da categoria final ou um conjunto de palavras-chaves ou ambos.
 
