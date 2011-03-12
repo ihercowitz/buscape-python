@@ -3,7 +3,7 @@
 
 __author__="Igor Hercowitz"
 __author__="Alê Borba"
-__version__="v0.5.0"
+__version__="v0.6.0"
 
 from VMBuilder.log import format
 from urllib2 import urlopen, Request, URLError, HTTPError
