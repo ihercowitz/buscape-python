@@ -277,3 +277,23 @@ class Buscape():
         ret = self.__search(method=method,parameter=parameter)
 
         return ret
+
+
+    def view_user_ratings(self, productID=None, format="XML"):
+        """
+        Método que retorna as avaliações dos usuários sobre um determinado produto.
+        """
+
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
+        if not productID:
+            raise ValueError('productID option must be especified')
+
+        method = "viewUserRatings"
+
+        parameter = "productId=%s&format=%s" %(productID,format)
+
+        ret = self.__search(method=method,parameter=parameter)
+
+        return ret
