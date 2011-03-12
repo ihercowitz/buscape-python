@@ -1,9 +1,16 @@
 #! /usr/bin/python
 # -*- coding: utf-8 -*-
 
+__author__="Igor Hercowitz"
+__author__="Alê Borba"
+__version__="v0.0.3"
+
 from urllib2 import urlopen, Request, URLError, HTTPError
 
 class Buscape():
+    """
+    Class for BuscaPé's API abstraction
+    """
     
     def __init__(self,applicationID=None, country="BR"):
         if not applicationID:
@@ -19,7 +26,7 @@ class Buscape():
             self.country = country
         
     
-    def fetch_url(self, url=None):        
+    def __fetch_url(self, url=None):
         if not url:
             raise ValueError("URL must be specified")
         
@@ -37,12 +44,8 @@ class Buscape():
             else:    
                 raise URLError(e)
 
-
-    def set_sandbox(self):
-        self.environment = 'sandbox'
-
     
-    def search(self, method=None, parameter=None):        
+    def __search(self, method=None, parameter=None):
         if not method and not parameter:
             raise ValueError("Both method and search parameter must be specified")
         elif not method:
@@ -59,14 +62,27 @@ class Buscape():
         req = "http://%s.buscape.com/service/%s/%s/%s/%s" %(self.environment, method, self.applicationID, self.country, parameter)
         
         try:
-            ret = self.fetch_url(url=req)
+            ret = self.__fetch_url(url=req)
             return ret    
             
         except URLError, e:
             raise URLError(e)
+
             
-    
-    def find_category_list(self, keyword=None, categoryID=None, format='XML'):        
+    def set_sandbox(self):
+        """
+        Define the environment test
+        """
+        self.environment = 'sandbox'
+
+
+    def find_category_list(self, keyword=None, categoryID=None, format='XML'):
+        """
+        Método faz busca de categorias, permite que você exiba informações
+	relativas às categorias. É possível obter categorias, produtos ou ofertas
+	informando apenas um ID de categoria.
+        """
+
         if format.upper() not in ["XML","JSON"]:
             raise ValueError("the return format must be XML or JSON")
         
@@ -81,13 +97,18 @@ class Buscape():
         else:
             parameter = "?categoryId=%s" %categoryID    
 
-        ret = self.search(method='findCategoryList', parameter=parameter)        
+        ret = self.__search(method='findCategoryList', parameter=parameter)
        
         return ret        
         
     
     def find_product_list(self, keyword=None, categoryID=None, format='XML', results=10,
                             page=1, minPrice=0.0, maxPrice=0.0):
+        """
+        Método permite que você busque uma lista de produtos únicos
+	utilizando o id da categoria final ou um conjunto de palavras-chaves
+	ou ambos.
+        """
                             
         if format.upper() not in ["XML","JSON"]:
             raise ValueError("the return format must be XML or JSON")
@@ -121,6 +142,6 @@ class Buscape():
         elif not keyword:
             parameter = "?categoryId=%s" %categoryID    
 
-        ret = self.search(method='findProductList', parameter=parameter)       
+        ret = self.__search(method='findProductList', parameter=parameter)
        
         return ret
