@@ -56,6 +56,10 @@ view_seller_details(sellerID, format)
 -------------------------------------------------
 Método que retorna os detalhes de uma loja ou empresa como: endereços, telefones de contato e etc.
 
+view_user_ratings(productID, format)
+------------------------------------------
+Método que retorna as avaliações dos usuários sobre um determinado produto.
+
 
 Exemplo de uso:
 -----------------
