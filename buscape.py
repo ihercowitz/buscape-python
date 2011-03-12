@@ -3,7 +3,7 @@
 
 __author__="Igor Hercowitz"
 __author__="Alê Borba"
-__version__="v0.0.3"
+__version__="v0.1.0"
 
 from VMBuilder.log import format
 from urllib2 import urlopen, Request, URLError, HTTPError
@@ -46,12 +46,12 @@ class Buscape():
                 raise URLError(e)
 
     
-    def __search(self, method=None, parameter=None):
+    def __search(self, method=None, parameter=None, topProducts=False):
         if not method and not parameter:
             raise ValueError("Both method and search parameter must be specified")
         elif not method:
             raise ValueError("Method must be specified")
-        elif not parameter:
+        elif not parameter and not topProducts:
             raise ValueError("Parameter must be specified")
 
         if self.environment != 'sandbox':
@@ -212,5 +212,18 @@ class Buscape():
             raise ValueError("One parameter must be especified")
 
         ret = self.__search(method=method, parameter=parameter)
+
+        return ret
+
+
+    def top_products(self):
+        """
+        Este serviço retorna os produtos mais populares do BuscaPé.
+        ToDo: Implementar filtros
+        """
+
+        method = "topProducts"
+
+        ret = self.__search(method=method,topProducts=True)
 
         return ret
