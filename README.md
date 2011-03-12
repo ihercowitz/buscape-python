@@ -12,7 +12,14 @@ O BuscaPé Python tem as seguintes dependências:
 
 Instalação
 -------------
-Basta copiar a pasta da lib para dentro do seu projeto
+Existem dois modos:
+
+- Copiar o arquivo buscape.py para dentro do seu projeto
+- Executar o instalador da seguinte forma:
+    
+    #dentro da pasta buscape-python execute
+    python setup.py build
+    sudo python setup.py install
 
 
 Métodos disponíveis

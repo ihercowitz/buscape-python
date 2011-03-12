@@ -5,7 +5,7 @@ from distutils.core import setup
 setup(name='Buscape',
       version='0.5',
       description='Python integration with BuscaPe via API',
-      author='Igor Hercowitz/Alê Borba',
+      author='Igor Hercowitz/Ale Borba',
       author_email='ihercowitz@gmail.com / ale.alvesborba@gmail.com',
       url='http://developer.buscape.com.br',
       packages=['buscape'],
