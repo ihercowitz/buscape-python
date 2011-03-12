@@ -9,14 +9,14 @@ from buscape import Buscape
 class BuscapeTest(unittest.TestCase):
 
     def setUp(self):
-        userID = '2b613573535a6d324874493d'
-        self.b = Buscape(userID=userID)
+        applicationID = '2b613573535a6d324874493d'
+        self.b = Buscape(applicationID=applicationID)
 
-    def test_userid_cannot_be_none(self):
+    def test_applicationid_cannot_be_none(self):
         self.assertRaisesRegexp(ValueError, 'User ID must be specified', Buscape)
         
-    def test_userid_cannot_be_blank(self):
-        self.assertRaisesRegexp(ValueError, 'User ID must be specified', Buscape, userID='')        
+    def test_applicationid_cannot_be_blank(self):
+        self.assertRaisesRegexp(ValueError, 'User ID must be specified', Buscape, applicationID='')
         
     def test_url_cannot_be_none(self):
         self.assertRaisesRegexp(ValueError, 'URL must be specified', self.b.fetch_url)
