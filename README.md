@@ -43,10 +43,14 @@ find_offer_list(categoryID, productID, barcode, keyword, lomadee, format)
 Método permite que você busque uma lista de produtos únicos utilizando o id da categoria final ou um conjunto de palavras-chaves ou ambos.
 ToDo: Implementar filtros
 
-top_products()
+top_products(format)
 -----------------------
-Este serviço retorna os produtos mais populares do BuscaPé.
+Método que retorna os produtos mais populares do BuscaPé.
 ToDo: Implementar filtros
+
+view_product_details(productID, format)
+---------------------------------------------------
+Método retorna os detalhes técnicos de um determinado produto.
 
 
 Exemplo de uso:
