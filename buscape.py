@@ -180,3 +180,37 @@ class Buscape():
         ret = self.__search(method='createSource/lomadee', parameter=parameter)
 
         return ret
+
+
+    def find_offer_list(self, categoryID=None, productID=None, barcode=None, keyword=None, lomadee=False, format="XML"):
+        """
+        Método permite que você busque uma lista de produtos únicos
+	utilizando o id da categoria final ou um conjunto de palavras-chaves
+	ou ambos.
+        ToDo: Implementar filtros
+        """
+
+        if format.upper() not in ["XML","JSON"]:
+            raise ValueError("the return format must be XML or JSON")
+
+        if lomadee:
+            method = 'findOfferList/lomadee'
+        else:
+            method = 'findOfferList'
+
+        if categoryID and keyword:
+            parameter = "categoryId=%s&keyword=%s" %(categoryID,keyword)
+        elif categoryID:
+            parameter = "categoryId=%s" %(categoryID)
+        elif keyword:
+            parameter = "keyword=%s" %(keyword)
+        elif barcode:
+            parameter = "barcode=%s" %(barcode)
+        elif productID:
+            parameter = "productId=%s" %(productID)
+        else:
+            raise ValueError("One parameter must be especified")
+
+        ret = self.__search(method=method, parameter=parameter)
+
+        return ret
