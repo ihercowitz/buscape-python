@@ -4,14 +4,14 @@
 from urllib2 import urlopen, Request, URLError, HTTPError
 
 class Buscape():
-
-    url = "http://sandbox.buscape.com/service/"
     
     def __init__(self,applicationID=None, country="BR"):
         if not applicationID:
             raise ValueError("User ID must be specified") 
             
         self.applicationID = applicationID
+
+        self.environment = 'bws'
         
         if country is None:
             self.country = "BR"
@@ -30,11 +30,17 @@ class Buscape():
             
         except URLError, e:
             if e.code == 401:
-                raise URLError("The request requires user authentication")
+                if self.environment == 'bws':
+                    raise URLError("Your application is not approved yet")
+                else:
+                    raise URLError("The request requires user authentication")
             else:    
                 raise URLError(e)
-        
-    
+
+
+    def set_sandbox(self):
+        self.environment = 'sandbox'
+
     
     def search(self, method=None, parameter=None):        
         if not method and not parameter:
@@ -43,12 +49,14 @@ class Buscape():
             raise ValueError("Method must be specified")
         elif not parameter:
             raise ValueError("Parameter must be specified")
-        
-        
+
         if method not in ["findProductList","findCategoryList"]:
             raise ValueError("Invalid method")
-        
-        req = self.url+'%s/%s/%s/%s' %(method, self.applicationID, self.country, parameter)
+
+        if self.environment != 'sandbox':
+            self.environment = 'bws'
+
+        req = "http://%s.buscape.com/service/%s/%s/%s/%s" %(self.environment, method, self.applicationID, self.country, parameter)
         
         try:
             ret = self.fetch_url(url=req)
