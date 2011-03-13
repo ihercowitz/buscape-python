@@ -190,12 +190,12 @@ class Buscape():
         return ret
 
 
-    def find_offer_list(self, categoryID=None, productID=None, barcode=None, keyword=None, lomadee=False, format="XML"):
+    def find_offer_list(self, categoryID=None, productID=None, barcode=None, keyword=None, lomadee=False, format="XML",
+                        results=None, page=None, priceMin=None, priceMax=None, sort=None, medal=None):
         """
         Método permite que você busque uma lista de produtos únicos
 	utilizando o id da categoria final ou um conjunto de palavras-chaves
 	ou ambos.
-        ToDo: Implementar filtros
         """
 
         if format.upper() not in ["XML","JSON"]:
@@ -219,17 +219,41 @@ class Buscape():
         else:
             raise ValueError("One parameter must be especified")
 
-        parameter = parameter + "&format=%s" %(format)
+        #Montando o filtro
+        if results:
+            parameter = parameter + "&results=%s" %(results)
+
+        if page:
+            parameter = parameter + "&page=%s" %(page)
+
+        if priceMin:
+            parameter = parameter + "&priceMin=%s" %(priceMin)
+
+        if priceMax:
+            parameter = parameter + "&priceMax=%s" %(priceMax)
+
+        if sort:
+            if sort in ['price','dprice','rate','drate','seller','dseller','installment','dinstallment','numberofinstallments','dnumberofinstallments','trustedStore']:
+                parameter = parameter + "&sort=%s" %(sort)
+            else:
+                raise ValueError('The value in the sort parameter is not valid')
+
+        if medal:
+            if medal in ['all','diamond','gold','silver','bronze']:
+                parameter = parameter + "medal=%s" %(medal)
+            else:
+                raise ValueError('The value in the medal parameter is not valid')
+
+        parameter = parameter+"&format=%s" %(format)
 
         ret = self.__search(method=method, parameter=parameter)
 
         return ret
 
 
-    def top_products(self, format="XML"):
+    def top_products(self, format="XML", filterID=None, valueID=None):
         """
         Método que retorna os produtos mais populares do BuscaPé.
-        ToDo: Implementar filtros
         """
 
         if format.upper() not in ["XML","JSON"]:
@@ -237,7 +261,11 @@ class Buscape():
 
         method = "topProducts"
 
-        parameter = "&format=%s" %(format)
+        parameter = "format=%s" %(format)
+
+        #Montando o filtro
+        if filterID and valueID:
+            parameter = parameter + "&specId%s=%s" %(filterID,valueID)
 
         ret = self.__search(method=method,parameter=parameter)
 
