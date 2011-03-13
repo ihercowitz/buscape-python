@@ -15,6 +15,7 @@ Instalação
 Existem dois modos:
 
 - Copiar o arquivo buscape.py para dentro do seu projeto
+
 - Executar o instalador da seguinte forma:
 --------------------------------------------
     
@@ -46,15 +47,13 @@ Dentro do fluxo de integração, o aplicativo utiliza esse serviço para criar s
 Os parâmetros necessários neste serviço são informados pelo próprio Lomadee ao aplicativo.
 No ambiente de homologação sandbox, os valores dos parâmetros podem ser fictícios pois neste ambiente este serviço retornará sempre o mesmo sourceId para os testes do Developer.
 
-find_offer_list(categoryID, productID, barcode, keyword, lomadee, format)
+find_offer_list(categoryID, productID, barcode, keyword, lomadee, format, results, page, priceMin, priceMax, sort, medal)
 -------------------------------------------------------------------------------
 Método permite que você busque uma lista de produtos únicos utilizando o id da categoria final ou um conjunto de palavras-chaves ou ambos.
-ToDo: Implementar filtros
 
-top_products(format)
+top_products(format, filterID, valueID)
 -----------------------
 Método que retorna os produtos mais populares do BuscaPé.
-ToDo: Implementar filtros
 
 view_product_details(productID, format)
 ---------------------------------------------------
