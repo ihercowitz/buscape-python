@@ -5,7 +5,6 @@ __author__="Igor Hercowitz"
 __author__="Alê Borba"
 __version__="v0.6.1"
 
-from VMBuilder.log import format
 from urllib2 import urlopen, Request, URLError, HTTPError
 
 class Buscape():
@@ -27,10 +26,7 @@ class Buscape():
             self.country = country
         
     
-    def __fetch_url(self, url=None):
-        if not url:
-            raise ValueError("URL must be specified")
-        
+    def __fetch_url(self, url=None):       
         try:
             resp = urlopen(url)
             data = resp.read()
@@ -47,13 +43,6 @@ class Buscape():
 
     
     def __search(self, method=None, parameter=None):
-        if not method and not parameter:
-            raise ValueError("Both method and search parameter must be specified")
-        elif not method:
-            raise ValueError("Method must be specified")
-        elif not parameter:
-            raise ValueError("Parameter must be specified")
-
         if self.environment != 'sandbox':
             self.environment = 'bws'
 
@@ -64,7 +53,7 @@ class Buscape():
             return ret    
             
         except URLError, e:
-            raise URLError(e)
+            raise e
 
             
     def set_sandbox(self):
@@ -134,11 +123,11 @@ class Buscape():
             raise ValueError("minimum price can not be greater than maximum price")
             
               
-        if keyword and categoryID:
+        if keyword and categoryID>=0:
             parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
-        elif not categoryID:          
+        elif keyword:          
             parameter = "keyword=%s" %keyword          
-        elif not keyword:
+        else:
             parameter = "categoryId=%s" %categoryID    
 
         parameter = parameter + "&format=%s" %(format)
@@ -206,9 +195,9 @@ class Buscape():
         else:
             method = 'findOfferList'
 
-        if categoryID and keyword:
+        if categoryID >=0 and keyword:
             parameter = "categoryId=%s&keyword=%s" %(categoryID,keyword)
-        elif categoryID:
+        elif categoryID >=0:
             parameter = "categoryId=%s" %(categoryID)
         elif keyword:
             parameter = "keyword=%s" %(keyword)
@@ -281,7 +270,7 @@ class Buscape():
             raise ValueError("the return format must be XML or JSON")
 
         if not productID:
-            raise ValueError('productID option must be especified')
+            raise ValueError('productID option must be specified')
 
         method = "viewProductDetails"
 
@@ -301,7 +290,7 @@ class Buscape():
             raise ValueError("the return format must be XML or JSON")
 
         if not sellerID:
-            raise ValueError("sellerID option must be especified")
+            raise ValueError("sellerID option must be specified")
 
         method = "viewSellerDetails"
 
@@ -321,7 +310,7 @@ class Buscape():
             raise ValueError("the return format must be XML or JSON")
 
         if not productID:
-            raise ValueError('productID option must be especified')
+            raise ValueError('productID option must be specified')
 
         method = "viewUserRatings"
 

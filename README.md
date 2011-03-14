@@ -1,7 +1,13 @@
 BuscaPé Python
 ==============
-Camada de abstração para a API do BuscaPé utilizando Python
 
+Camada de abstração para a API do BuscaPé utilizando Python.
+
+Requerimentos
+--------------
+Python 2.6 oo superior da serie 2.x
+
+Ainda nao foi testado com a versao 3.x
 
 Dependências
 --------------
