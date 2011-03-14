@@ -3,7 +3,7 @@
 from distutils.core import setup
 
 setup(name='Buscape',
-      version='0.6.1',
+      version='0.6.2',
       description='Python integration with BuscaPe via API',
       author='Igor Hercowitz/Ale Borba',
       author_email='ihercowitz@gmail.com / ale.alvesborba@gmail.com',

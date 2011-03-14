@@ -3,7 +3,7 @@
 
 __author__="Igor Hercowitz"
 __author__="Alê Borba"
-__version__="v0.6.1"
+__version__="v0.6.2"
 
 from urllib2 import urlopen, Request, URLError, HTTPError
 
