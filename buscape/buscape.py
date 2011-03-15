@@ -31,17 +31,21 @@ class Buscape():
             resp = urlopen(url)
             data = resp.read()
             return dict(code=resp.code,data=data)
-            
-        except URLError, e:
+        except HTTPError, e:            
             if e.code == 401:
                 if self.environment == 'bws':
-                    raise URLError("Your application is not approved yet")
+                    raise HTTPError(url,e.code,"Your application is not approved yet",None,None)
                 else:
-                    raise URLError("The request requires user authentication")
+                    raise HTTPError(url,e.code,"The request requires user authentication",None,None)
+        except URLError, e:
+            code_error = e.reason.errno
+
+            if code_error == 11001:
+                raise URLError("no connection avaliable")
             else:    
                 raise URLError(e)
 
-    
+     
     def __search(self, method=None, parameter=None):
         if self.environment != 'sandbox':
             self.environment = 'bws'
@@ -50,8 +54,9 @@ class Buscape():
         
         try:
             ret = self.__fetch_url(url=req)
-            return ret    
-            
+            return ret  
+        except HTTPError,e:
+            raise e
         except URLError, e:
             raise e
 
@@ -85,9 +90,12 @@ class Buscape():
 
         parameter = parameter + "&format=%s" %(format)
 
-        ret = self.__search(method='findCategoryList', parameter=parameter)
-       
-        return ret        
+ 
+        ret = self.__search(method='findCategoryList', parameter=parameter)       
+        return ret  
+
+        
+      
         
     
     def find_product_list(self, keyword=None, categoryID=None, format='XML', lomadee=False, results=10,
