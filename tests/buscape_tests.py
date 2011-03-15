@@ -15,6 +15,8 @@ class BuscapeTest(unittest.TestCase):
         
             if excClass == URLError:
                 reason = e.reason
+            elif excClass == HTTPError:    
+                reason = e.msg
             else:
                 reason = e.message
                 
@@ -42,12 +44,12 @@ class BuscapeTest(unittest.TestCase):
     
     def test_application_has_not_been_approved(self):
         app = Buscape(applicationID=self.applicationID)
-        self.assertRaisesMessage(URLError, 'Your application is not approved yet',app.find_category_list, keyword='xxx')
+        self.assertRaisesMessage(HTTPError, 'Your application is not approved yet',app.find_category_list, keyword='xxx')
  
     def test_application_with_wrong_applicationID_and_country_None(self):
         app = Buscape(applicationID='xpto', country=None)
         app.set_sandbox()
-        self.assertRaisesMessage(URLError, 'The request requires user authentication',app.find_category_list, keyword='xxx')        
+        self.assertRaisesMessage(HTTPError, 'The request requires user authentication',app.find_category_list, keyword='xxx')        
     
     
     def test_find_category_parameters_cannot_be_none(self):
@@ -70,16 +72,22 @@ class BuscapeTest(unittest.TestCase):
          self.assertRaisesMessage(ValueError, 'the return format must be XML or JSON',self.b.find_category_list, keyword='xxx', format='')       
          
     def test_find_category_parameter_format_must_be_json_or_xml(self):
-         self.assertRaisesMessage(ValueError, 'the return format must be XML or JSON',self.b.find_category_list, keyword='xxx', format='letter')               
+        self.assertRaisesMessage(ValueError, 'the return format must be XML or JSON',self.b.find_category_list, keyword='xxx', format='letter')               
 
     def test_find_category_parameter_format_must_be_case_insensitive(self):
-         self.assertEquals(self.b.find_category_list(categoryID=0, format='json')['code'],200)             
-         
+        self.assertEquals(self.b.find_category_list(categoryID=0, format='json')['code'],200)             
+    
+
+    """
+    def test_find_category_if_no_connection_should_raise_no_connection_error(self):
+        self.assertRaisesMessage(URLError, 'no connection avaliable',self.b.find_category_list, categoryID=0)
+    """    
+    
     def test_find_category_by_keyword_must_return_200(self):
-         self.assertEquals(self.b.find_category_list(keyword='LG')['code'],200)    
+        self.assertEquals(self.b.find_category_list(keyword='LG')['code'],200)    
 
     def test_find_category_by_keyword_must_return_data(self):
-         self.assertTrue(self.b.find_category_list(keyword='LG')['data'] is not None)              
+        self.assertTrue(self.b.find_category_list(keyword='LG')['data'] is not None)              
 
     def test_find_category_by_categoryId_must_return_200(self):
          self.assertEquals(self.b.find_category_list(categoryID=0)['code'],200)    
