@@ -240,7 +240,7 @@ class Buscape():
         return ret
 
 
-    def top_products(self, format="XML", filterID=None, valueID=None):
+    def top_products(self, format="XML"):
         """
         Método que retorna os produtos mais populares do BuscaPé.
         """
@@ -251,10 +251,6 @@ class Buscape():
         method = "topProducts"
 
         parameter = "format=%s" %(format)
-
-        #Montando o filtro
-        if filterID and valueID:
-            parameter = parameter + "&specId%s=%s" %(filterID,valueID)
 
         ret = self.__search(method=method,parameter=parameter)
 
