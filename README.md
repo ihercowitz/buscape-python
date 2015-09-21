@@ -87,7 +87,7 @@ Exemplo de uso:
     buscape = Buscape(applicationID='your_applicationID', sandbox=True)
     
     # Exemplo do instanciamento fora do ambiente de testes
-    # caso a homologação do app já tenha sido realizado:
+    # caso a homologação do app já tenha sido realizada:
     # buscape = Buscape(applicationID='your_applicationID')
 
     # Retornando a categoria 77
