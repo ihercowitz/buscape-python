@@ -85,7 +85,7 @@ class Buscape():
         if format.upper() not in ["XML","JSON"]:
             raise ValueError("the return format must be XML or JSON")
         
-        if not keyword and (categoryID < 0 or categoryID is None or categoryID==''): 
+        if not keyword and (categoryID is None or categoryID < 0 or categoryID==''): 
             raise ValueError("keyword or categoryID option must be specified")
         elif keyword and categoryID:
             raise ValueError("you must specify only keyword or categoryID. Both values aren't accepted")    
@@ -116,7 +116,7 @@ class Buscape():
         if format.upper() not in ["XML","JSON"]:
             raise ValueError("the return format must be XML or JSON")
         
-        if not keyword and (categoryID < 0 or categoryID is None or categoryID==''):
+        if not keyword and (categoryID is None or categoryID < 0 or categoryID==''):
             raise ValueError("keyword or categoryID option must be specified")
         
         if results not in range(1,999):
@@ -135,11 +135,11 @@ class Buscape():
         elif maxPrice < 0.0:
             raise ValueError("maximum price can not be negative")     
         elif maxPrice > 0.0 and minPrice > maxPrice:
-            raise ValueError("minimum price can not be greater than maximum price")
-            
-              
-        if keyword and categoryID>=0:
-            parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
+            raise ValueError("minimum price can not be greater than maximum price")   
+
+        if categoryID is not None:     
+            if keyword and categoryID >= 0:
+                parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
         elif keyword:          
             parameter = "keyword=%s" %keyword          
         else:
@@ -210,10 +210,11 @@ class Buscape():
         else:
             method = 'findOfferList'
 
-        if categoryID >=0 and keyword:
-            parameter = "categoryId=%s&keyword=%s" %(categoryID,keyword)
-        elif categoryID >=0:
-            parameter = "categoryId=%s" %(categoryID)
+        if categoryID is not None:
+            if categoryID >= 0 and keyword:
+                parameter = "categoryId=%s&keyword=%s" %(categoryID,keyword)
+            elif categoryID >= 0:
+                parameter = "categoryId=%s" %(categoryID)
         elif keyword:
             parameter = "keyword=%s" %(keyword)
         elif barcode:
