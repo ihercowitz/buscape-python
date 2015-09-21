@@ -7,7 +7,7 @@ Requerimentos
 --------------
 Python 2.6 oo superior da serie 2.x
 
-Ainda nao foi testado com a versao 3.x
+Sendo portado para a versão 3.x
 
 Dependências
 --------------
@@ -90,4 +90,4 @@ Exemplo de uso:
     exemplo = buscape.find_category_list(categoryID=77)
 
     #Imprimindo
-    print exemplo
+    print(exemplo)
