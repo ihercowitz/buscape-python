@@ -19,13 +19,16 @@ class Buscape():
     Class for BuscaPé's API abstraction
     """
     
-    def __init__(self,applicationID=None, country="BR"):
+    def __init__(self,applicationID=None, country="BR", sandbox=False):
         if not applicationID:
             raise ValueError("User ID must be specified") 
             
         self.applicationID = applicationID
 
-        self.environment = 'bws'
+        if sandbox: #Define the environment test
+            self.environment = 'sandbox'
+        else:
+            self.environment = 'bws'
         
         if country is None:
             self.country = "BR"
