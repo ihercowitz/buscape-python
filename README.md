@@ -80,14 +80,18 @@ Exemplo de uso:
     #! /usr/bin/python
     # -*- coding: utf-8 -*-
 
-    #importanto a lib
+    # importanto a lib
     from buscape import Buscape
+    
+    # Instanciando o objeto para rodar dentro do ambiente de testes
+    buscape = Buscape(applicationID='your_applicationID', sandbox=True)
+    
+    # Exemplo do instanciamento fora do ambiente de testes
+    # caso a homologação do app já tenha sido realizado:
+    # buscape = Buscape(applicationID='your_applicationID')
 
-    #Instanciando o objeto
-    buscape = Buscape(applicationID='your_applicationID')
-
-    #Retornando a categoria 77
+    # Retornando a categoria 77
     exemplo = buscape.find_category_list(categoryID=77)
 
-    #Imprimindo
+    # Imprimindo
     print(exemplo)
