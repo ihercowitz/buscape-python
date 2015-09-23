@@ -4,7 +4,7 @@
 __author__="Igor Hercowitz"
 __author__="Alê Borba"
 __author__="André Ramos"
-__version__="v0.7.0"
+__version__="v0.7.1"
 
 import platform
 vPy = platform.python_version().split('.')[0] #Armazena a versão do python
@@ -39,7 +39,7 @@ class Buscape():
     def __fetch_url(self, url=None):       
         try:
             resp = urlopen(url)
-            data = resp.read()
+            data = resp.read().decode('utf-8')
             return dict(code=resp.code,data=data)
         except HTTPError as e:            
             if e.code == 401:
