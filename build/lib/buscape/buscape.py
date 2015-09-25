@@ -143,10 +143,10 @@ class Buscape():
         if categoryID is not None:     
             if keyword and categoryID >= 0:
                 parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
+            elif categoryID >= 0:
+                parameter = "categoryId=%s" %categoryID
         elif keyword:          
-            parameter = "keyword=%s" %keyword          
-        else:
-            parameter = "categoryId=%s" %categoryID    
+            parameter = "keyword=%s" %keyword             
 
         parameter = parameter + "&format=%s" %(format)
 

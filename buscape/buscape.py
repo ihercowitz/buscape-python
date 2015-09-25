@@ -4,7 +4,7 @@
 __author__="Igor Hercowitz"
 __author__="Alê Borba"
 __author__="André Ramos"
-__version__="v0.7.1"
+__version__="v0.7.2"
 
 import platform
 vPy = platform.python_version().split('.')[0] #Armazena a versão do python
@@ -143,10 +143,10 @@ class Buscape():
         if categoryID is not None:     
             if keyword and categoryID >= 0:
                 parameter = "categoryId=%s&keyword=%s" %(categoryID, keyword)
+            elif categoryID >= 0:
+                parameter = "categoryId=%s" %categoryID
         elif keyword:          
-            parameter = "keyword=%s" %keyword          
-        else:
-            parameter = "categoryId=%s" %categoryID    
+            parameter = "keyword=%s" %keyword             
 
         parameter = parameter + "&format=%s" %(format)
 
